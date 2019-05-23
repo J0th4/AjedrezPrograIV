@@ -8,7 +8,7 @@ package co.edu.utp.isc.pro4.ajedrez.modelo;
 import java.awt.GradientPaint;
 import java.awt.Graphics2D;
 import java.awt.geom.GeneralPath;
-
+import excepciones.MovimientoNoValidoException;
 /**
  *
  * @author utp
@@ -63,7 +63,7 @@ public class Torre extends Ficha {
                 if(casillaI.getFicha().getColor() != casillaF.getFicha().getColor()){
                 //Llamar a metodo comer
                 }
-                else if(casillaI.getFicha().getColor() == casillaF.getFicha().getColor()){//Si la ficha inicial es del mismo color que la final no es valido
+                                else if(casillaI.getFicha().getColor() == casillaF.getFicha().getColor()){//Si la ficha inicial es del mismo color que la final no es valido
                     System.out.println("Movimiento no valido porque ambas fichas son del mismo color.");
                 }
                 else if(!casillaF.isOcupada()){//Movimiento normal

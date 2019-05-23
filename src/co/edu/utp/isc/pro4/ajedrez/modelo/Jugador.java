@@ -14,18 +14,18 @@ import excepciones.MovimientoNoValidoException;
 public class Jugador {
 
     private Ajedrez ajedrez;
-    private String nombre;
+    private final String nombre;
 
     public Jugador(String nombre) {
         this.nombre = nombre;
     }
 
-    public void jugar(Casilla casillaI, Casilla casillaF) throws MovimientoNoValidoException {
+    public void jugar (Casilla casillaI, Casilla casillaF) throws MovimientoNoValidoException{
         if(casillaI.isOcupada()){
             Ficha f;
             f = casillaI.getFicha();    
-            f = casillaI.getFicha();
             f.mover(ajedrez.getTablero(), casillaI, casillaF);
+            
          }// TODO: Mover ficha de forma inteligente
     }
 

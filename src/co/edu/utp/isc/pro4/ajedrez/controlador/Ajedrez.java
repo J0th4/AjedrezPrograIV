@@ -28,7 +28,7 @@ public class Ajedrez {
     /*Temporal*/
     private PnlTablero pnlTablero;
 
-    private Jugador[] jugadores;
+    public Jugador[] jugadores;
     private Tablero tablero;
     private Cronometro cronometro;
 
@@ -55,7 +55,7 @@ public class Ajedrez {
         pnlTablero.setTablero(tablero);
     }
 
-    public void jugar() {
+    public void jugar() throws MovimientoNoValidoException {
         jugadores[0].setAjedrez(this);
         jugadores[1].setAjedrez(this);
 
@@ -63,6 +63,8 @@ public class Ajedrez {
 
         cronometro.iniciar();
         mostrarTablero();
+        jugadores[1].jugar(tablero.getCasilla("C8"), tablero.getCasilla("B8"));
+        
        
     }
 
