@@ -75,7 +75,7 @@ import java.awt.geom.Rectangle2D;
                     }
                 if(!ocupada){
                     if(casillaI.getFicha().getColor() != casillaF.getFicha().getColor()){
-                    
+                    this.comer (casillaI, casillaF);
                 }
                 else if(casillaI.getFicha().getColor() == casillaF.getFicha().getColor()){//Si la ficha inicial es del mismo color que la final no es valido
                     System.out.println("Movimiento no valido porque ambas fichas son del mismo color.");
@@ -93,12 +93,9 @@ import java.awt.geom.Rectangle2D;
 
 
             }
-        }
-
-    
-    
-    public void comer() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        else{
+                System.out.println("Asi no se mueve el alfil");
+                }
     }
 
    

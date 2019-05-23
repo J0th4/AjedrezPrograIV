@@ -23,9 +23,30 @@ public class Rey extends Ficha {
     }
 
     @Override
-    public void mover(Tablero tablero,Casilla casillaI, Casilla casillaF) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void mover(Tablero tablero, Casilla casillaI, Casilla casillaF) {
+    int cI,cF,fI,fF, restaA, restaB;
+    cI = casillaI.getColumna() - 'A';//x Inicial
+    fI = casillaI.getFila() - 1;//y Inicial
+    cF = casillaF.getColumna() - 'A';//x Final 
+    fF = casillaF.getFila() - 1 ;//y Final
+    restaA = fI - fF;
+    restaB = cI - cF;
+    if(Math.abs(restaA) == 1 || Math.abs(restaB) == 1){
+        if(casillaI.getFicha().getColor() != casillaF.getFicha().getColor()){
+            this.comer(casillaI, casillaF);
+        }
+        else if(casillaI.getFicha().getColor() == casillaF.getFicha().getColor()){//Si la ficha inicial es del mismo color que la final no es valido
+            System.out.println("Movimiento no valido porque ambas fichas son del mismo color.");
+        }
+        else if(!casillaF.isOcupada()){//Movimiento normal
+            casillaI.setFichaNull();
+            super.asociarFichaTablero(this, casillaF);
+        }    
+    }   
+    else{
+        System.out.println("Asi no se mueve el rey");
     }
+ }
 
 
     @Override
