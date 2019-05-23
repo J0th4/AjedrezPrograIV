@@ -41,10 +41,10 @@ public class Torre extends Ficha {
                 else if(casillaF.getFila() > casillaI.getFila()){
                     fI = fI + 1;
                 }
-                casillaC = tablero.getCasilla(cI,fI);
+                casillaC = tablero.getCasilla(fI,cI);
                 ocupada = casillaC.isOcupada();
                 while((casillaC.getFila() != casillaF.getFila()) && (casillaC.getColumna() != casillaF.getColumna()) && !ocupada){
-                    casillaC = tablero.getCasilla(cI,fI);
+                    casillaC = tablero.getCasilla(fI,cI);
                     ocupada = casillaC.isOcupada();
                     if (casillaF.getColumna() > casillaI.getColumna()){
                     cI = cI + 1;
@@ -72,18 +72,15 @@ public class Torre extends Ficha {
                 }
                 }
                 else{//Movimiento no valido por elemento en la trayectoria
-                    System.out.println("Movimiento no valido por ficha en trayectoria");
+                    System.out.println("Movimiento no valido hay una ficha en la trayectoria");
                 }
                 }
             else{
-                System.out.println("Asi no se mueve la torre");
+                System.out.println("De esa forma no se mueve la torre");
             }
         }
 
-    @Override
-    public void comer() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
 
     public void draw(Graphics2D g, float x, float y) {
         GeneralPath polyline = new GeneralPath(GeneralPath.WIND_EVEN_ODD, 17);

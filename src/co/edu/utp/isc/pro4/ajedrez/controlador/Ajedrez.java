@@ -18,7 +18,7 @@ import co.edu.utp.isc.pro4.ajedrez.modelo.Rey;
 import co.edu.utp.isc.pro4.ajedrez.modelo.Tablero;
 import co.edu.utp.isc.pro4.ajedrez.modelo.Torre;
 import co.edu.utp.isc.pro4.ajedrez.ui.PnlTablero;
-
+import excepciones.MovimientoNoValidoException;
 /**
  *
  * @author utp: odau
@@ -63,39 +63,17 @@ public class Ajedrez {
 
         cronometro.iniciar();
         mostrarTablero();
-        /*
-        do {
-            jugadores[turno].jugar();
-            // Validar si hay Jaque Mate y terminar
-            if (terminado) {
-                turno = (turno == 0 ? 1 : 0);
-                break;
-            } else if (validarJaqueMate()) {
-                terminado = true;
-                break;
-            } else if (validarTablas()) {
-                break;
-            }
-            // Sino, cambiar turno
-            cambioTurno();
-
-        } while (!terminado);
-        cronometro.parar();
-
-        //TODO: Cambiarlo de lugar
-        if (terminado) {
-            System.out.println("El Jugador "
-                    + jugadores[turno].getNombre() + " ha ganado");
-        } else {
-            System.out.println("Los jugadores han quedado en tablas");
-        }
-         */
+       
     }
 
     public void cambioTurno() {
         turno = (turno == 0 ? 1 : 0);
         cronometro.cambio();
     }
+    
+    public Tablero getTablero(){
+        return this.tablero;
+} 
 
     private boolean validarJaqueMate() {
         //TODO: Validar si el jugador contrario ha quedado en Jaque Mate
@@ -141,6 +119,12 @@ public class Ajedrez {
         f.setCasilla(c);
         c.setFicha(f);
     }
+    
+     public void moverFicha(String inicio, String fin) throws MovimientoNoValidoException {
+        jugadores[turno].jugar(tablero.getCasilla(inicio),tablero.getCasilla(fin));
+        mostrarTablero();
+    }
+
 
     private void mostrarTablero() {
         pnlTablero.updateUI();

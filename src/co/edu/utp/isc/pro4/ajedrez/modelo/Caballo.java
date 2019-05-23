@@ -22,13 +22,44 @@ public class Caballo extends Ficha {
 
     @Override
     public void mover(Tablero tablero,Casilla casillaI, Casilla casillaF) {
+        boolean ocupada = false;
+            int cI,cF,fI,fF;
+            cI = casillaI.getColumna() - 'A';//x Inicial
+            fI = casillaI.getFila() - 1;//y Inicial
+            cF = casillaF.getColumna() - 'A';//x Final 
+            fF = casillaF.getFila() - 1 ;//y Final
+    
+     if((fI-fF)*(fI-fF) +(cI-cF)*(cI-cF) == 5){
+
+                if(!casillaF.isOcupada()){
+
+                casillaI.setFichaNull();
+                super.asociarFichaTablero(this, casillaF);
+
+                }
+                 else {
+
+                if((this.getColor() != casillaF.getFicha().getColor())){
+
+                    this.comer(casillaI,casillaF);
+                }
+                else {
+                    System.out.println("Son del mismo color");
+                }
+                }
+
+
+            }
+     
+                  System.out.println("De esa forma no se mueve el caballo");
+            }
+
+    public void comer(Casilla casillaI, Casilla casillaF) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public void comer() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+
+    
 
     @Override
    public void draw(Graphics2D g, float x, float y) { 
@@ -73,5 +104,9 @@ public class Caballo extends Ficha {
         polyline.lineTo(x + 30, y + 30);
         polyline.moveTo(x + 20, y + 30);
         g.draw(polyline);
+    }
+
+    public void comer() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

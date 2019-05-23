@@ -6,7 +6,7 @@
 package co.edu.utp.isc.pro4.ajedrez.modelo;
 
 import co.edu.utp.isc.pro4.ajedrez.controlador.Ajedrez;
-
+import excepciones.MovimientoNoValidoException;
 /**
  *
  * @author utp
@@ -20,8 +20,13 @@ public class Jugador {
         this.nombre = nombre;
     }
 
-    public void jugar() {
-        // TODO: Mover ficha de forma inteligente
+    public void jugar(Casilla casillaI, Casilla casillaF) throws MovimientoNoValidoException {
+        if(casillaI.isOcupada()){
+            Ficha f;
+            f = casillaI.getFicha();    
+            f = casillaI.getFicha();
+            f.mover(ajedrez.getTablero(), casillaI, casillaF);
+         }// TODO: Mover ficha de forma inteligente
     }
 
     public void setAjedrez(Ajedrez ajedrez) {
@@ -36,5 +41,7 @@ public class Jugador {
         // No me gusta pero los estudiantes lo pidieron
         ajedrez.rendirse();
     }
-
+    
 }
+
+    

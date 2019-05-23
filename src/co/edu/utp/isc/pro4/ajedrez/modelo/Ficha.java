@@ -6,7 +6,7 @@
 package co.edu.utp.isc.pro4.ajedrez.modelo;
 
 import co.edu.utp.isc.pro4.ajedrez.controlador.Dibujable;
-
+import excepciones.MovimientoNoValidoException;
 /**
  *
  * @author utp
@@ -20,10 +20,14 @@ public abstract class Ficha extends Dibujable {
         this.color = color;
     }
 
-    public abstract void mover(Tablero tablero,Casilla casillaI, Casilla casillaF);
-
-    public abstract void comer();
-
+    
+    public abstract void mover(Tablero tablero, Casilla casillaI, Casilla casillaF) throws MovimientoNoValidoException;
+    
+    public void comer(Casilla casillaI, Casilla casillaF){
+        asociarFichaTablero((Caballo) casillaI.getFicha(),casillaF);
+        casillaI.setFichaNull();
+    };
+    
     public Casilla getCasilla() {
         return casilla;
     }
@@ -55,9 +59,10 @@ public abstract class Ficha extends Dibujable {
         return tipo + (getColor() == Color.BLANCO ? "B" : "N");
     }
 
-        public void asociarFichaTablero(Ficha ficha,Casilla casilla){
-        ficha.setCasilla(casilla);
-        casilla.setFicha(ficha);
+    void asociarFichaTablero(Caballo aThis, Casilla casillaF) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+        
 
 }

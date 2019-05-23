@@ -52,14 +52,14 @@ public class Alfil extends Ficha {
                             fI = fI - 1;
                     }
             
-                    casillaC = tablero.getCasilla(cI,fI); 
+                    casillaC = tablero.getCasilla(fI,cI); 
                     ocupada = casillaC.isOcupada();
             
             //
             
             
                 while((casillaC.getFila() != casillaF.getFila()) && (casillaC.getColumna() < casillaF.getColumna()) && !ocupada){
-                    casillaC = tablero.getCasilla(cI,fI);
+                    casillaC = tablero.getCasilla(fI,cI);
                     ocupada = casillaC.isOcupada();
                     
                     
@@ -102,12 +102,6 @@ public class Alfil extends Ficha {
             }
         }
 
-    @Override
-   
-    
-    
-    
-    
     
     
     public void comer() {
