@@ -7,6 +7,7 @@ package co.edu.utp.isc.pro4.ajedrez.modelo;
 
 import co.edu.utp.isc.pro4.ajedrez.controlador.Ajedrez;
 import excepciones.MovimientoNoValidoException;
+import javax.swing.JOptionPane;
 /**
  *
  * @author utp
@@ -14,7 +15,7 @@ import excepciones.MovimientoNoValidoException;
 public class Jugador {
 
     private Ajedrez ajedrez;
-    private final String nombre;
+    private String nombre;
 
     public Jugador(String nombre) {
         this.nombre = nombre;
@@ -23,10 +24,21 @@ public class Jugador {
     public void jugar (Casilla casillaI, Casilla casillaF) throws MovimientoNoValidoException{
         if(casillaI.isOcupada()){
             Ficha f;
-            f = casillaI.getFicha();    
-            f.mover(ajedrez.getTablero(), casillaI, casillaF);
+            f = casillaI.getFicha();
+            System.out.println("Color: "+ casillaI.getFicha().getColor()+". Turno:"+ajedrez.getTurno());
+            if((casillaI.getFicha().getColor() == Color.BLANCO) && (ajedrez.getTurno() == 0) 
+                || (casillaI.getFicha().getColor() == Color.NEGRO) && (ajedrez.getTurno() == 1))
+                f.mover(ajedrez.getTablero(), casillaI, casillaF);
+            else{
+                ajedrez.cambioTurno();//Para volver al turno en que estaba
+                System.out.println("No es su turno");
             
-         }// TODO: Mover ficha de forma inteligente
+         }
+       }
+       else{
+            ajedrez.cambioTurno();
+            System.out.println("No ha seleccionado una ficha");
+        } 
     }
 
     public void setAjedrez(Ajedrez ajedrez) {
