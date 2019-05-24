@@ -8,7 +8,7 @@ package co.edu.utp.isc.pro4.ajedrez.modelo;
 import java.awt.GradientPaint;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
-
+ 
     /**
      *
      * @author utp
