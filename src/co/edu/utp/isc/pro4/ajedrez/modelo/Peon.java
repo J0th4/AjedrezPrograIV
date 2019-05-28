@@ -36,7 +36,7 @@ public class Peon extends Ficha {
             Casilla casillaC;   
 
             if((Math.abs(restaA) == 2 || Math.abs(restaA) == 1)){// Condicion general de movimiento del peon
-                 if(restaA == 2 && casillaI.getFicha().getColor() == Color.BLANCO){//Caso para mover 2 casillas BLANCO
+                 if(restaA == 2 && casillaI.getFicha().getColor() == Color.NEGRO){//Caso para mover 2 casillas BLANCO
                     fI = fI + 1;
                     casillaC = tablero.getCasilla(fI,cI);
                     if(fI != fF || cI != cF){
@@ -44,7 +44,7 @@ public class Peon extends Ficha {
                     }
                 }
 
-                  else if(restaA == 2 && casillaI.getFicha().getColor() == Color.NEGRO){//Caso para mover 2 casillas NEGRO
+                  else if(restaA == 2 && casillaI.getFicha().getColor() == Color.BLANCO){//Caso para mover 2 casillas NEGRO
                     fI = fI - 1;
 
                      casillaC = tablero.getCasilla(fI,cI);
@@ -58,7 +58,7 @@ public class Peon extends Ficha {
                 System.out.println("restaA: "+ restaA);
                 if(!ocupada){
                     if(!casillaF.isOcupada()){//Movimiento normal
-                   if(this.getColor() == Color.NEGRO){
+                   if(this.getColor() == Color.BLANCO){
                               if(restaA == 1 || (restaA == 2 && fIAUX == 6)){
                                 casillaI.setFichaNull();
                                 super.asociarFichaTablero(this, casillaF);
@@ -72,7 +72,7 @@ public class Peon extends Ficha {
                                 
                               }
                         }
-                       else if(this.getColor() == Color.BLANCO){
+                       else if(this.getColor() == Color.NEGRO){
                              if((restaA == -1 && cF == cI) || (restaA == -2 && fIAUX == 1)){
                                 casillaI.setFichaNull();
                                 super.asociarFichaTablero(this, casillaF);
@@ -89,13 +89,13 @@ public class Peon extends Ficha {
                      else if(casillaF.isOcupada()){
                         if(casillaI.getFicha().getColor() != casillaF.getFicha().getColor()){
                             if(Math.abs(restaB) == 1){
-                                if(casillaI.getFicha().getColor() == Color.BLANCO && restaA == -1){
+                                if(casillaI.getFicha().getColor() == Color.NEGRO && restaA == -1){
                                 
                                     this.comer(casillaI, casillaF);
                                     efectivo=true;
                                 }    
                             
-                           else if(casillaI.getFicha().getColor() == Color.NEGRO && restaA == 1){                                     
+                           else if(casillaI.getFicha().getColor() == Color.BLANCO && restaA == 1){                                     
                                       this.comer(casillaI, casillaF);
                                       efectivo = true;
                         }
@@ -139,7 +139,7 @@ public class Peon extends Ficha {
         g.draw(new Ellipse2D.Float(x + 17, y + 15, 16, 16));
         g.draw(new Rectangle2D.Float(x + 15, y + 30, 20, 15));
     }
-    
+     
     
     
     @Override
@@ -163,10 +163,10 @@ public class Peon extends Ficha {
         restaA = fI - fF;
         restaB = cF - cI;
         if(Math.abs(restaB) == 1){
-            if(this.getColor() == Color.BLANCO && restaA == -1){
+            if(this.getColor() == Color.NEGRO && restaA == -1){
                 setJaque(true);
             } 
-            else if(this.getColor() == Color.NEGRO && restaA == 1){
+            else if(this.getColor() == Color.BLANCO && restaA == 1){
                 setJaque(true);
             }    
         }
