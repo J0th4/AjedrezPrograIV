@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
  *
  * @author utp
  */ 
-public class Torre extends Ficha {
+public class Torre extends Ficha { 
 
     public Torre(Color color) {
         super(color);
