@@ -36,7 +36,7 @@ public abstract class Ficha extends Dibujable {
     
     
     public void comer(Casilla casillaI, Casilla casillaF){
-        asociarFichaTablero((Caballo) casillaI.getFicha(),casillaF);
+        asociarFichaTablero(casillaI.getFicha() ,casillaF);
         casillaI.setFichaNull();
     };
     
