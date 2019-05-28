@@ -11,6 +11,7 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,30 +24,147 @@ public class Rey extends Ficha {
     }
 
     @Override
-    public void mover(Tablero tablero, Casilla casillaI, Casilla casillaF) {
-    int cI,cF,fI,fF, restaA, restaB;
+    public boolean mover(Tablero tablero, Casilla casillaI, Casilla casillaF) {
+        boolean ocupada = false, efectivo = false;
+    int cI,cF,fI,fF, restaF, restaC;
     cI = casillaI.getColumna() - 'A';//x Inicial
     fI = casillaI.getFila() - 1;//y Inicial
     cF = casillaF.getColumna() - 'A';//x Final 
     fF = casillaF.getFila() - 1 ;//y Final
-    restaA = fI - fF;
-    restaB = cI - cF;
-    if(Math.abs(restaA) == 1 || Math.abs(restaB) == 1){
-       if(!casillaF.isOcupada()){//Movimiento normal
-            casillaI.setFichaNull();
-            super.asociarFichaTablero(this, casillaF);
-        }    
-        else if(casillaI.getFicha().getColor() != casillaF.getFicha().getColor()){
-            this.comer(casillaI, casillaF);
+    Casilla casillaC;
+    casillaC = casillaI;
+    restaF = fI - fF;
+    restaC = cI - cF;
+    if(Math.abs(restaF) <= 1 & Math.abs(restaC) <= 1){
+       if (casillaF.getColumna() > casillaI.getColumna() && casillaF.getFila() > casillaI.getFila()){
+                    cI = cI + 1;
+                    fI = fI + 1;
+                }
+                else if(casillaF.getColumna() < casillaI.getColumna() && casillaF.getFila() > casillaI.getFila()){
+                    cI = cI - 1;
+                    fI = fI + 1;
+                }
+                else if(casillaF.getColumna() < casillaI.getColumna() && casillaF.getFila() < casillaI.getFila()){
+                    cI = cI - 1;
+                    fI = fI - 1;
+                }
+                else if(casillaF.getColumna() > casillaI.getColumna() && casillaF.getFila() < casillaI.getFila()){
+                    cI = cI + 1;
+                    fI = fI - 1;
+                }
+               
+                
+                
+                // condicion del movimiento de la torre
+                
+                
+                else if (casillaF.getColumna() > casillaI.getColumna()){
+                    cI = cI + 1;
+                }
+                else if(casillaF.getColumna() < casillaI.getColumna()){
+                    cI = cI - 1;
+                }
+                else if(casillaF.getFila() < casillaI.getFila()){
+                    fI = fI - 1;
+                }
+                else if(casillaF.getFila() > casillaI.getFila()){
+                    fI = fI + 1;
+                }
+                
+                   casillaC = tablero.getCasilla(fI,cI);
+                if(cI != cF || fI != fF){
+                    ocupada = casillaC.isOcupada();
+                }
+                while((cI != cF || fI != fF) && ocupada==false){
+                    casillaC = tablero.getCasilla(fI,cI);
+                    ocupada=casillaC.isOcupada();
+                   
+                    
+                   if (casillaF.getColumna() > casillaI.getColumna() && casillaF.getFila() > casillaI.getFila()){
+                    cI = cI + 1;
+                    fI = fI + 1;
+                }
+                else if(casillaF.getColumna() < casillaI.getColumna() && casillaF.getFila() > casillaI.getFila()){
+                    cI = cI - 1;
+                    fI = fI + 1;
+                }
+                else if(casillaF.getColumna() < casillaI.getColumna() && casillaF.getFila() < casillaI.getFila()){
+                    cI = cI - 1;
+                    fI = fI - 1;
+                }
+                else if(casillaF.getColumna() > casillaI.getColumna() && casillaF.getFila() < casillaI.getFila()){
+                    cI = cI + 1;
+                    fI = fI - 1;
+                }
+               
+                
+                
+                // condicion del movimiento de la torre
+                
+                
+                else if (casillaF.getColumna() > casillaI.getColumna()){
+                    cI = cI + 1;
+                }
+                else if(casillaF.getColumna() < casillaI.getColumna()){
+                    cI = cI - 1;
+                }
+                else if(casillaF.getFila() < casillaI.getFila()){
+                    fI = fI - 1;
+                }
+                else if(casillaF.getFila() > casillaI.getFila()){
+                    fI = fI + 1;
+                }   
+                    
+                 
+                }
+               
+                  if(!casillaF.isOcupada()){//Que en la casilla final no haya nada    TIPO 1 (MOVIMIENTO NORMAL)
+                    if(!ocupada){//Si no hay nada en la trayectoria
+                        casillaI.setFichaNull();
+                        super.asociarFichaTablero(this, casillaF);
+                        efectivo=true;
+                    }
+                    else{
+                      //  System.out.println("Hay una ficha en la trayectoria");
+                        JOptionPane.showMessageDialog(null,"Hay una ficha en la trayectoria");
+                    }
+                }
+                else{//Que en la casilla final haya una ficha                       TIPO 2 (COMER)
+                   if(this.getColor() != casillaF.getFicha().getColor()){//Si la fichaI y la fichaF son de diferente color
+                        if(!ocupada){
+                              if(casillaF.getFicha() instanceof Rey){
+                                JOptionPane.showMessageDialog(null, "Fin Del Juego");
+                            }
+                            this.comer(casillaI,casillaF);
+                             efectivo=true;
+                        }
+                        else{
+                           // System.out.println("Hay una ficha en trayectoria");
+                            JOptionPane.showMessageDialog(null,"Hay una ficha en la trayectoria");
+                        }
+                   }
+                   else{
+                      // System.out.println("Ambas fichas son del mismo color");
+                        JOptionPane.showMessageDialog(null,"Ambas fichas son del mismo color");
+                   }
+                }
+                
+                
+                
+                
+                
+                
+                
+            }
+            
+            else{
+                System.out.println("De esa forma no se mueve el Rey");
+            }
+
+
+        return efectivo;
+        
         }
-        else if(casillaI.getFicha().getColor() == casillaF.getFicha().getColor()){//Si la ficha inicial es del mismo color que la final no es valido
-            System.out.println("Movimiento no valido porque ambas fichas son del mismo color.");
-        }  
-    }   
-    else{
-        System.out.println("Asi no se mueve el rey");
-    }
-}
 
 
     @Override
@@ -89,7 +207,9 @@ public class Rey extends Ficha {
   
         
     }
-    
+     @Override
+    public void haceJaque(Tablero tablero) {
+    }
 
       
     }

@@ -19,6 +19,7 @@ import co.edu.utp.isc.pro4.ajedrez.modelo.Tablero;
 import co.edu.utp.isc.pro4.ajedrez.modelo.Torre;
 import co.edu.utp.isc.pro4.ajedrez.ui.PnlTablero;
 import excepciones.MovimientoNoValidoException;
+
 /**
  *
  * @author utp: odau
@@ -55,7 +56,7 @@ public class Ajedrez {
         pnlTablero.setTablero(tablero);
     }
 
-    public void jugar() throws MovimientoNoValidoException {
+    public void jugar() {
         jugadores[0].setAjedrez(this);
         jugadores[1].setAjedrez(this);
 
@@ -63,7 +64,7 @@ public class Ajedrez {
 
         cronometro.iniciar();
         mostrarTablero();
-        jugadores[1].jugar(tablero.getCasilla("C8"), tablero.getCasilla("B8"));
+        
         
        
     }
@@ -127,7 +128,6 @@ public class Ajedrez {
     
      public void moverFicha(String inicio, String fin) throws MovimientoNoValidoException {
         jugadores[turno].jugar(tablero.getCasilla(inicio),tablero.getCasilla(fin));
-        mostrarTablero();
         this.mostrarTablero();
         this.cambioTurno();
     }

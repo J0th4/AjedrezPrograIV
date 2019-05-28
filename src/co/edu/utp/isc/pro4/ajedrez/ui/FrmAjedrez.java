@@ -7,7 +7,10 @@ package co.edu.utp.isc.pro4.ajedrez.ui;
 
 import co.edu.utp.isc.pro4.ajedrez.controlador.Ajedrez;
 import co.edu.utp.isc.pro4.ajedrez.modelo.Jugador;
-
+import excepciones.MovimientoNoValidoException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 /**
  *
  * @author utp
@@ -296,6 +299,8 @@ public class FrmAjedrez extends javax.swing.JFrame {
                 new Jugador(txtNegras.getText().trim()));
         juego.setPnlTablero((PnlTablero) pnlTablero);
         juego.jugar();
+        
+        lblJugador.setText(txtBlancas.getText());
     }//GEN-LAST:event_btnJugarActionPerformed
 
     private void pnlTableroMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlTableroMouseReleased
@@ -312,6 +317,13 @@ public class FrmAjedrez extends javax.swing.JFrame {
             } else {
                 txtFin.setText((char) ('A' + col - 1) + Integer.toString(row));
                 jugadaInicial = true;
+                try {
+                juego.moverFicha(txtInicio.getText(),txtFin.getText());
+                }
+                catch (MovimientoNoValidoException ex){
+                JOptionPane.showMessageDialog(this,ex.getMessage());
+                Logger.getLogger(FrmAjedrez.class.getName()).log(Level.SEVERE,null,ex);
+                }
             }
         }
     }//GEN-LAST:event_pnlTableroMouseReleased
@@ -337,6 +349,18 @@ public class FrmAjedrez extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtInicioActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        // TODO add your handling code here:
+
+        btnJugar.setEnabled(false);
+        juego = new Ajedrez(
+            new Jugador(txtBlancas.getText().trim()),
+            new Jugador(txtNegras.getText().trim()));
+        juego.setPnlTablero((PnlTablero) pnlTablero);
+        juego.jugar();
+
+        lblJugador.setText(txtBlancas.getText());
+    }
     /**
      * @param args the command line arguments
      */
@@ -368,6 +392,7 @@ public class FrmAjedrez extends javax.swing.JFrame {
             }
         });
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnJugar;

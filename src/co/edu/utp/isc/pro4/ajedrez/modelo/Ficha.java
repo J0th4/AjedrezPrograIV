@@ -6,7 +6,6 @@
 package co.edu.utp.isc.pro4.ajedrez.modelo;
 
 import co.edu.utp.isc.pro4.ajedrez.controlador.Dibujable;
-import java.util.*;
 import excepciones.MovimientoNoValidoException;
 /**
  *
@@ -16,13 +15,25 @@ public abstract class Ficha extends Dibujable {
 
     private Casilla casilla;
     private final Color color;
+    private boolean jaque;
 
     public Ficha(Color color) {
         this.color = color;
+        this.jaque = false;
     }
 
     
-    public abstract void mover(Tablero tablero, Casilla casillaI, Casilla casillaF) throws MovimientoNoValidoException;
+     public void setJaque(boolean haceJaque){
+        this.jaque = haceJaque;
+    }
+    public boolean getJaque(){
+        return jaque;
+    }        
+    public abstract boolean mover(Tablero tablero, Casilla casillaI, Casilla casillaF);
+
+    public abstract void haceJaque(Tablero tablero);
+    
+    
     
     public void comer(Casilla casillaI, Casilla casillaF){
         asociarFichaTablero((Caballo) casillaI.getFicha(),casillaF);
@@ -66,10 +77,6 @@ public abstract class Ficha extends Dibujable {
             tipo = "R";
         }
         return tipo + (getColor() == Color.BLANCO ? "B" : "N");
-    }
-
-    void asociarFichaTablero(Caballo aThis, Casilla casillaF) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
         

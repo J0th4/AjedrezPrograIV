@@ -9,6 +9,7 @@ import java.awt.GradientPaint;
 import java.awt.Graphics2D;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Rectangle2D;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,9 +22,10 @@ public class Caballo extends Ficha {
     }
 
     @Override
-    public void mover(Tablero tablero,Casilla casillaI, Casilla casillaF) {
+    public boolean mover(Tablero tablero,Casilla casillaI, Casilla casillaF) {
         boolean ocupada = false;
             int cI,cF,fI,fF;
+            boolean efectivo = false;
             cI = casillaI.getColumna() - 'A';//x Inicial
             fI = casillaI.getFila() - 1;//y Inicial
             cF = casillaF.getColumna() - 'A';//x Final 
@@ -35,29 +37,53 @@ public class Caballo extends Ficha {
 
                 casillaI.setFichaNull();
                 super.asociarFichaTablero(this, casillaF);
-
+                efectivo = true;
                 }
                  else {
 
                 if((this.getColor() != casillaF.getFicha().getColor())){
-
-                    this.comer(casillaI,casillaF);
+                   if(casillaF.getFicha() instanceof Rey){
+                                JOptionPane.showMessageDialog(null, "Fin Del Juego");
+                }
+                   this.comer(casillaI,casillaF);
+                    efectivo = true;
                 }
                 else {
-                    System.out.println("Son del mismo color");
+                    JOptionPane.showMessageDialog(null, "Fichas del mismo color ");
                 }
                 }
 
 
             }
      
-                  System.out.println("De esa forma no se mueve el caballo");
+     else{
+         JOptionPane.showMessageDialog(null, "Asi no se mueve el caballo");
+         
+     }
+     return efectivo;
             }
 
-    public void comer(Casilla casillaI, Casilla casillaF) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void haceJaque(Tablero tablero){
+            int cI, fI, cF, fF;
+            cI = this.getCasilla().getColumna() - 'A';
+            fI = this.getCasilla().getFila() - 1;
+            Casilla casillaC;
+            Ficha rey;
+            rey = this;
+            for(int i = 0; i < 8; i++){
+                for(int j = 0; j < 8; j++){
+                    casillaC = tablero.getCasilla(i,j);
+                    if(casillaC.getFicha() instanceof Rey && casillaC.getFicha().getColor() != this.getColor()){
+                        rey = casillaC.getFicha();
+                    }
+                }
+            }
+            cF = rey.getCasilla().getColumna() - 'A';
+            fF = rey.getCasilla().getFila() - 1;
+            if((fI-fF)*(fI-fF) + (cI-cF)*(cI-cF) == 5){
+                this.setJaque(true);
+            }
     }
-
 
     
 
